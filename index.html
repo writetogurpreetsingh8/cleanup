@@ -3,32 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uninstall Cleanup</title>
+    <title>Uninstall Inertia Breaker</title>
+    <link rel="stylesheet" href="uninstall.css"> <!-- External CSS -->
 </head>
 <body>
-    <h1>We're sorry to see you go!</h1>
-    <p>Cleaning up your data...</p>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Inertia Breaker Logo" class="logo" />
+            <h1>Thank You for Using Inertia Breaker</h1>
+        </div>
+        <p class="message">
+            We're sorry to see you go. If there's anything we can do to improve, please let us know. We’re constantly working to make your experience better!
+        </p>
+        <div class="cleanup">
+            <h2>Cleaning Up...</h2>
+            <p>We are removing your local data to ensure a complete uninstall.</p>
+            <p class="status" id="cleanupStatus">Starting cleanup...</p>
+        </div>
+    </div>
     <script>
-        // Delete a specific IndexedDB database
-        // Name of the database you want to delete
-const dbName = 'myDatabase';
+        // JavaScript to handle cleanup and feedback submission
+        document.addEventListener("DOMContentLoaded", () => {
+            const cleanupStatus = document.getElementById("cleanupStatus");
+            const dbName = "YourDatabaseName"; // Replace with your database name
 
-// Initiate the delete request
-const deleteRequest = indexedDB.deleteDatabase(dbName);
-
-deleteRequest.onsuccess = () => {
-  console.log(`Database "${dbName}" deleted successfully`);
-};
-
-deleteRequest.onerror = (event) => {
-  console.error(`Error deleting database "${dbName}":`, event.target.error);
-};
-
-deleteRequest.onblocked = () => {
-  console.warn(`Deletion of database "${dbName}" is blocked. 
-  Close all open connections (tabs/windows) to this DB and try again.`);
-};
-
+            // Delete specific IndexedDB database
+            const request = indexedDB.deleteDatabase(dbName);
+            request.onsuccess = () => {
+                cleanupStatus.textContent = `Database '${dbName}' deleted successfully.`;
+            };
+            request.onerror = (event) => {
+                cleanupStatus.textContent = `Error deleting database '${dbName}': ${event.target.error}`;
+            };
+            request.onblocked = () => {
+                cleanupStatus.textContent = `Database deletion blocked. Please close all tabs using this extension.`;
+            };
+        });
     </script>
 </body>
 </html>
