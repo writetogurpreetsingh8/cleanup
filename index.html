@@ -30,10 +30,10 @@
             // Delete specific IndexedDB database
             const request = indexedDB.deleteDatabase(dbName);
             request.onsuccess = () => {
-                cleanupStatus.textContent = `Database '${dbName}' deleted successfully.`;
+                cleanupStatus.textContent = `Database deleted successfully.`;
             };
             request.onerror = (event) => {
-                cleanupStatus.textContent = `Error deleting database '${dbName}': ${event.target.error}`;
+                cleanupStatus.textContent = `Error deleting database: ${event.target.error}`;
             };
             request.onblocked = () => {
                 cleanupStatus.textContent = `Database deletion blocked. Please close all tabs using this extension.`;
