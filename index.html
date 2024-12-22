@@ -10,14 +10,25 @@
     <p>Cleaning up your data...</p>
     <script>
         // Delete a specific IndexedDB database
-        const dbName = "BrowsingDataDB"; // Replace with your database name
-        indexedDB.deleteDatabase(dbName)
-            .then(() => {
-                console.log(`Database '${dbName}' deleted successfully.`);
-            })
-            .catch((error) => {
-                console.error(`Error deleting database '${dbName}':`, error);
-            });
+        // Name of the database you want to delete
+const dbName = 'myDatabase';
+
+// Initiate the delete request
+const deleteRequest = indexedDB.deleteDatabase(dbName);
+
+deleteRequest.onsuccess = () => {
+  console.log(`Database "${dbName}" deleted successfully`);
+};
+
+deleteRequest.onerror = (event) => {
+  console.error(`Error deleting database "${dbName}":`, event.target.error);
+};
+
+deleteRequest.onblocked = () => {
+  console.warn(`Deletion of database "${dbName}" is blocked. 
+  Close all open connections (tabs/windows) to this DB and try again.`);
+};
+
     </script>
 </body>
 </html>
