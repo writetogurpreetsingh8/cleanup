@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uninstall Inertia Breaker</title>
-    <link rel="stylesheet" href="uninstall.css"> <!-- External CSS -->
+    <link rel="stylesheet" href="style.css"> <!-- External CSS -->
 </head>
 <body>
     <div class="container">
@@ -38,6 +38,13 @@
             request.onblocked = () => {
                 cleanupStatus.textContent = `Database deletion blocked. Please close all tabs using this extension.`;
             };
+            chrome.storage.local.remove(['globalTimer','blocklist','pageDisplay','siteTimes','globalTime',
+    'globalLimit','siteLimits','breakSettings','monitorUsage','monitoringUsageInstance','password','blockSocialMediaToggle'],
+    () => {
+      if (chrome.runtime.lastError) {
+        console.error('Error removing keys:', chrome.runtime.lastError);
+      }
+    });
         });
     </script>
 </body>
