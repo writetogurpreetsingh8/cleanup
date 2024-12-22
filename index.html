@@ -38,12 +38,6 @@
             request.onblocked = () => {
                 cleanupStatus.textContent = `Database deletion blocked. Please close all tabs using this extension.`;
             };
-            chrome.storage.local.remove(['globalTimer','blocklist','pageDisplay','siteTimes','globalTime',
-    'globalLimit','siteLimits','breakSettings','monitorUsage','monitoringUsageInstance','password','blockSocialMediaToggle'],
-    () => {
-      if (chrome.runtime.lastError) {
-        console.error('Error removing keys:', chrome.runtime.lastError);
-      }
     });
         });
     </script>
